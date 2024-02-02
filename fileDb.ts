@@ -32,7 +32,13 @@ const deleteItemFromArray = async (array: ItemWithID[], id: string) => {
         if (updatedItems.length === array.length) {
             console.error('Item not found');
         } else {
-            (data as any)[array === data.categories ? 'categories' : array === data.places ? 'places' : 'items'] = updatedItems;
+            if (array === data.categories) {
+                data.categories = updatedItems as Category[];
+            } else if (array === data.places) {
+                data.places = updatedItems as Place[];
+            } else if (array === data.items) {
+                data.items = updatedItems as Items[];
+            }
             await fileDb.save();
         }
 
@@ -41,6 +47,22 @@ const deleteItemFromArray = async (array: ItemWithID[], id: string) => {
         console.error(error);
         throw new Error('Internal Server Error');
     }
+};
+
+const updateItemById = async (array: ItemWithID[], id: string, newData: any) => {
+    const itemToUpdateIndex = array.findIndex(item => item.id === id);
+
+    if (itemToUpdateIndex === -1) {
+        return null;
+    }
+
+    array[itemToUpdateIndex] = {
+        ...newData,
+        id: id,
+    };
+
+    await fileDb.save();
+    return array[itemToUpdateIndex];
 };
 
 const fileDb = {
@@ -82,6 +104,15 @@ const fileDb = {
     },
     async deleteItem(id: string) {
         return deleteItemFromArray(data.items, id);
+    },
+    async updateItemById(id: string, newData: ItemsWithOutID) {
+        return updateItemById(data.items, id, newData);
+    },
+    async updatePlaceById(id: string, newData: PlacesWithOutID) {
+        return updateItemById(data.places, id, newData);
+    },
+    async updateCategoryById(id: string, newData: CategoryWithOutID) {
+        return updateItemById(data.categories, id, newData);
     },
     async save() {
         const dataToSave = {

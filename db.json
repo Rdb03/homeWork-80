@@ -3,10 +3,19 @@
     {
       "id": "c7a66721-0392-442a-b7e8-1c6c211c6424",
       "nameCategory": "Car",
-      "description": ""
+      "description": "German cars"
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "id": "3ad5db03-c231-466d-9a07-9720f30aaa05",
+      "nameItems": "BMW 7 Series",
+      "description": "Color: black",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2",
+      "image": "image"
+    }
+  ],
   "places": [
     {
       "id": "e20c4099-6a2b-4a02-9351-197e0c514fb2",

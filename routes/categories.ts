@@ -1,6 +1,7 @@
 import {Router} from "express";
 import fileDb from "../fileDb";
 import {CategoryWithOutID} from "../type";
+import itemsRouter from "./items";
 
 const categoriesRouter = Router();
 
@@ -27,7 +28,7 @@ categoriesRouter.delete('/:id', async (req, res) => {
         const category = categories.find(m => m.id === req.params.id);
 
         if (!category) {
-            return res.status(404).json({ error: 'Place not found' });
+            return res.status(404).json({ error: 'Category not found' });
         }
 
         const deleteCategory = await fileDb.deleteCategory(category.id);
@@ -57,6 +58,24 @@ categoriesRouter.post('/',async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+categoriesRouter.put('/:id', async (req, res) => {
+    const resourceId = req.params.id;
+    const newData = req.body;
+
+    try {
+        const updatedCategory = await fileDb.updateCategoryById(resourceId, newData);
+
+        if (!updatedCategory) {
+            return res.status(404).send({"error": "Category not found"});
+        }
+
+        res.send(updatedCategory);
+    } catch (error) {
+        console.error("Error updating resource:", error);
+        res.status(500).send({"error": "An error occurred while updating the resource"});
     }
 });
 

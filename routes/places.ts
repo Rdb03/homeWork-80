@@ -1,6 +1,7 @@
 import {Router} from "express";
 import fileDb from "../fileDb";
 import {PlacesWithOutID,} from "../type";
+import itemsRouter from "./items";
 
 const placesRouter = Router();
 
@@ -63,6 +64,24 @@ placesRouter.post('/',async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+placesRouter.put('/:id', async (req, res) => {
+    const resourceId = req.params.id;
+    const newData = req.body;
+
+    try {
+        const updatedPlace = await fileDb.updatePlaceById(resourceId, newData);
+
+        if (!updatedPlace) {
+            return res.status(404).send({"error": "Place not found"});
+        }
+
+        res.send(updatedPlace);
+    } catch (error) {
+        console.error("Error updating resource:", error);
+        res.status(500).send({"error": "An error occurred while updating the resource"});
     }
 });
 
