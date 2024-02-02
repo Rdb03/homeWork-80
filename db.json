@@ -43,6 +43,14 @@
       "nameItems": "BMW 3 Series",
       "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
       "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2"
+    },
+    {
+      "id": "abe28794-8c84-41ff-9964-eced541ff89c",
+      "nameItems": "BMW 3 Series",
+      "description": "Color: black",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2",
+      "image": "f9ab5c1e-7667-437e-adb8-10837647bd7b.jpg"
     }
   ],
   "places": [

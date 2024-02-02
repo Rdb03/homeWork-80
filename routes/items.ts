@@ -40,7 +40,9 @@ itemsRouter.delete('/:id', async (req, res) => {
 });
 
 itemsRouter.post('/', imagesUpload.single('image'), async (req, res) => {
-    const { nameItems, description, idCategory, idPlaces, image } = req.body;
+
+    const { nameItems, description, idCategory, idPlaces } = req.body;
+    const image = req.file ? req.file.filename : '';
 
     if (!nameItems || !idCategory || !idPlaces) {
         return res.status(400).json({ error: 'Item cannot be empty' });

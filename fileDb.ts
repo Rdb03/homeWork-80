@@ -20,7 +20,6 @@ const addItemToArray = async (array: ItemWithID[], item: CategoryWithOutID | Pla
     const id = crypto.randomUUID();
     const newItem = {id, ...item};
     array.push(newItem);
-    console.log(array);
     await fileDb.save();
     return newItem;
 };
