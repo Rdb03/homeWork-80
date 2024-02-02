@@ -14,6 +14,35 @@
       "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
       "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2",
       "image": "image"
+    },
+    {
+      "id": "d6da9be7-7988-4d37-a3be-de39f435285d",
+      "nameItems": "BMW 8 Series",
+      "description": "Color: red",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2",
+      "image": ""
+    },
+    {
+      "id": "1b9d8362-ea89-4200-bbcf-95ba37cb8497",
+      "nameItems": "BMW 8 Series",
+      "description": "Color: red",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2",
+      "image": ""
+    },
+    {
+      "id": "852bc8b4-95d5-4121-a7ba-1e8da41d5700",
+      "nameItems": "BMW 8 Series",
+      "description": "Color: red",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2"
+    },
+    {
+      "id": "b4d9a7ed-5445-444c-9f01-eec53c7e69cf",
+      "nameItems": "BMW 3 Series",
+      "idCategory": "c7a66721-0392-442a-b7e8-1c6c211c6424",
+      "idPlaces": "e20c4099-6a2b-4a02-9351-197e0c514fb2"
     }
   ],
   "places": [

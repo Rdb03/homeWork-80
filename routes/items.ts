@@ -1,6 +1,7 @@
 import {Router} from "express";
 import fileDb from "../fileDb";
 import {ItemsWithOutID,} from "../type";
+import {imagesUpload} from "../multer";
 
 const itemsRouter = Router();
 
@@ -38,7 +39,7 @@ itemsRouter.delete('/:id', async (req, res) => {
     }
 });
 
-itemsRouter.post('/', async (req, res) => {
+itemsRouter.post('/', imagesUpload.single('image'), async (req, res) => {
     const { nameItems, description, idCategory, idPlaces, image } = req.body;
 
     if (!nameItems || !idCategory || !idPlaces) {
@@ -66,7 +67,7 @@ itemsRouter.post('/', async (req, res) => {
         };
 
         const savedItem = await fileDb.addItem(newItem);
-        res.status(201).json(savedItem);
+        res.send(savedItem);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
