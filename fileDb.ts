@@ -114,6 +114,13 @@ const fileDb = {
     async updateCategoryById(id: string, newData: CategoryWithOutID) {
         return updateItemById(data.categories, id, newData);
     },
+    async getCategoryById(id: string) {
+        return data.categories.find(category => category.id === id);
+    },
+
+    async getPlaceById(id: string) {
+        return data.places.find(place => place.id === id);
+    },
     async save() {
         const dataToSave = {
             categories: data.categories,

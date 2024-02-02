@@ -38,30 +38,41 @@ itemsRouter.delete('/:id', async (req, res) => {
     }
 });
 
-itemsRouter.post('/',async (req, res) => {
-
+itemsRouter.post('/', async (req, res) => {
     const { nameItems, description, idCategory, idPlaces, image } = req.body;
 
     if (!nameItems || !idCategory || !idPlaces) {
         return res.status(400).json({ error: 'Item cannot be empty' });
     }
 
-    const newItem: ItemsWithOutID = {
-        nameItems: nameItems,
-        description: description,
-        idCategory: idCategory,
-        idPlaces: idPlaces,
-        image: image,
-    };
-
     try {
-        const savedCategory = await fileDb.addItem(newItem);
-        res.send(savedCategory);
+        const category = await fileDb.getCategoryById(idCategory);
+        const place = await fileDb.getPlaceById(idPlaces);
+
+        if (!category) {
+            return res.status(400).json({ error: 'Category does not exist' });
+        }
+
+        if (!place) {
+            return res.status(400).json({ error: 'Place does not exist' });
+        }
+
+        const newItem: ItemsWithOutID = {
+            nameItems: nameItems,
+            description: description,
+            idCategory: idCategory,
+            idPlaces: idPlaces,
+            image: image,
+        };
+
+        const savedItem = await fileDb.addItem(newItem);
+        res.status(201).json(savedItem);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 itemsRouter.put('/:id', async (req, res) => {
     const resourceId = req.params.id;
