@@ -1,7 +1,6 @@
 import {Router} from "express";
 import fileDb from "../fileDb";
 import {PlacesWithOutID,} from "../type";
-import itemsRouter from "./items";
 
 const placesRouter = Router();
 
@@ -30,20 +29,28 @@ placesRouter.put('/:id', async (req, res) => {
 
 placesRouter.delete('/:id', async (req, res) => {
     try {
-        const places = await fileDb.getPlaces();
-        const place = places.find(m => m.id === req.params.id);
+        const placeId = req.params.id;
 
-        if (!place) {
-            return res.status(404).json({ error: 'Place not found' });
+        const itemsWithPlace = await fileDb.getItemsByCategoryId(placeId);
+        if (itemsWithPlace.length > 0) {
+            return res.status(400).json({ error: 'Cannot delete place with associated items' });
         }
 
-        const deletedPlaces = await fileDb.deletePlace(place.id);
-        res.send(deletedPlaces);
+        const places = await fileDb.getCategories();
+        const place = places.find(m => m.id === placeId);
+
+        if (!place) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        const deletePlace = await fileDb.deleteCategory(place.id);
+        res.send(deletePlace);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 placesRouter.post('/',async (req, res) => {
 

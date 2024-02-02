@@ -117,9 +117,11 @@ const fileDb = {
     async getCategoryById(id: string) {
         return data.categories.find(category => category.id === id);
     },
-
     async getPlaceById(id: string) {
         return data.places.find(place => place.id === id);
+    },
+    async getItemsByCategoryId(categoryId: string) {
+        return data.items.filter(item => item.idCategory === categoryId);
     },
     async save() {
         const dataToSave = {

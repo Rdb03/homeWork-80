@@ -1,7 +1,6 @@
 import {Router} from "express";
 import fileDb from "../fileDb";
 import {CategoryWithOutID} from "../type";
-import itemsRouter from "./items";
 
 const categoriesRouter = Router();
 
@@ -24,8 +23,15 @@ categoriesRouter.get('/:id', async (req, res) => {
 
 categoriesRouter.delete('/:id', async (req, res) => {
     try {
+        const categoryId = req.params.id;
+
+        const itemsWithCategory = await fileDb.getItemsByCategoryId(categoryId);
+        if (itemsWithCategory.length > 0) {
+            return res.status(400).json({ error: 'Cannot delete category with associated items' });
+        }
+
         const categories = await fileDb.getCategories();
-        const category = categories.find(m => m.id === req.params.id);
+        const category = categories.find(m => m.id === categoryId);
 
         if (!category) {
             return res.status(404).json({ error: 'Category not found' });
@@ -38,6 +44,7 @@ categoriesRouter.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 categoriesRouter.post('/',async (req, res) => {
 
