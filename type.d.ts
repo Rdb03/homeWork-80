@@ -1,0 +1,39 @@
+export interface Category {
+    id: string,
+    nameCategory: string,
+    description: string,
+}
+
+export interface CategoryWithOutID {
+    nameCategory: string,
+    description: string,
+}
+
+export interface Place {
+    id: string,
+    namePlace: string,
+    description: string,
+}
+
+export interface PlacesWithOutID {
+    namePlace: string,
+    description: string,
+}
+
+export interface Items {
+    id: string,
+    idCategory: string,
+    idPlaces: string,
+    nameItems: string,
+    description: string,
+    image: string | null,
+}
+
+export interface ItemsWithOutID {
+    idCategory: string,
+    idPlaces: string,
+    nameItems: string,
+    description: string,
+    image: string | null,
+}
+
